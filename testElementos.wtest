@@ -1,0 +1,54 @@
+import elementos.*
+import plagas.*
+
+describe "test de elementos que son atacados por plagas" {
+  const cucas1 = new Cucarachas(poblacion=15,pesoPromedio=8)
+  const cucas2 = new Cucarachas(poblacion=25, pesoPromedio=12)
+  const pulgas1 = new Pulgas(poblacion=8)
+  const pulgas2 = new Pulgas(poblacion=18)
+  const garra2 = new Garrapatas(poblacion=10)
+  const mosqui1 = new Mosquitos(poblacion=50)
+  const hogar1 = new Hogar(confort=50,nivelDeMugre=10)
+  const huerta1 = new Huerta(capacidadProduccion=100)
+  const firulais1 = new Mascota(salud=300)
+  const pichichus1 = new Mascota(salud=100)
+  
+  
+  test "hogar1 recibe ataque de cucas1 y su nivel de mugre pasa a ser 17.5" {
+    hogar1.recibirAtaque(cucas1)
+    assert.equals(17.5, hogar1.nivelDeMugre())
+  }
+  test "huerta1 recibe ataque de mosqui1 y su capacidad de produccion pasa a ser 95" {
+    huerta1.recibirAtaque(mosqui1)
+    assert.equals(95, huerta1.capacidadProduccion())
+  }
+  test "nivelMinimoRequerido se setea a 200 entonces huerta1 no es bueno" {
+    nivelMinimoRequerido.valor(200)
+    assert.notThat(huerta1.esBueno())
+  }
+}
+
+describe "test de los efectos en las plagas dsp de atacar" {
+  const cucas1 = new Cucarachas(poblacion=15,pesoPromedio=8)
+  const cucas2 = new Cucarachas(poblacion=25, pesoPromedio=12)
+  const pulgas1 = new Pulgas(poblacion=8)
+  const pulgas2 = new Pulgas(poblacion=18)
+  const garra1 = new Garrapatas(poblacion=10)
+  const mosqui1 = new Mosquitos(poblacion=50)
+  const hogar1 = new Hogar(confort=50,nivelDeMugre=10)
+  const huerta1 = new Huerta(capacidadProduccion=100)
+  const firulais1 = new Mascota(salud=300)
+  const pichichus1 = new Mascota(salud=100)
+  
+  test "cucas1 ataca a hogar1 entonces queda con mugre 17.5 y cucas1 queda con poblacion 16.5" {
+    cucas1.atacar(hogar1)
+    assert.equals(17.5, hogar1.nivelDeMugre())
+    assert.equals(16.5, cucas1.poblacion())
+  }
+  test "garra1 ataca a pichichus1 2 veces, garra 1 qued" {
+    garra1.atacar(pichichus1)
+    garra1.atacar(pichichus1)
+    assert.equals(56, pichichus1.salud())
+    assert.equals(14.4, garra1.poblacion())
+  }
+}
